@@ -56,7 +56,8 @@ internal extension MessagesViewController {
 
         currentMenuController.setMenuVisible(false, animated: false)
 
-        guard let selectedCell = messagesCollectionView.cellForItem(at: selectedIndexPath) as? MessageContentCell else { return }
+//        guard let selectedCell = messagesCollectionView.cellForItem(at: selectedIndexPath) as? MessageContentCell else { return }
+        guard let selectedCell = messagesCollectionView.cellForItem(at: selectedIndexPath) as? CustomTextMessageContentCell else { return }
         let selectedCellMessageBubbleFrame = selectedCell.convert(selectedCell.messageContainerView.frame, to: view)
 
         var messageInputBarFrame: CGRect = .zero

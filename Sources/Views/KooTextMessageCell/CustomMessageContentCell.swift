@@ -7,15 +7,14 @@
 //
 
 import UIKit
-import MessageKit
 
-class CustomMessageContentCell: MessageCollectionViewCell {
+open class CustomMessageContentCell: MessageCollectionViewCell {
     
     /// The `MessageCellDelegate` for the cell.
-    weak var delegate: MessageCellDelegate?
+    open weak var delegate: MessageCellDelegate?
     
     /// The container used for styling and holding the message's content view.
-    var messageContainerView: UIView = {
+    open var messageContainerView: UIView = {
         let containerView = UIView()
         containerView.clipsToBounds = true
         containerView.layer.masksToBounds = true
@@ -23,14 +22,14 @@ class CustomMessageContentCell: MessageCollectionViewCell {
     }()
 
     /// The top label of the cell.
-    var cellTopLabel: UILabel = {
+    open var cellTopLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
         label.textAlignment = .center
         return label
     }()
     
-    var cellDateLabel: UILabel = {
+    open var cellDateLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
         label.textAlignment = .right
@@ -43,13 +42,13 @@ class CustomMessageContentCell: MessageCollectionViewCell {
         self.setupSubviews()
     }
 
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         self.contentView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         self.setupSubviews()
     }
 
-    override func prepareForReuse() {
+    open override func prepareForReuse() {
         super.prepareForReuse()
         self.cellTopLabel.text = nil
         self.cellTopLabel.attributedText = nil
@@ -58,7 +57,7 @@ class CustomMessageContentCell: MessageCollectionViewCell {
     }
     
     /// Handle tap gesture on contentView and its subviews.
-    override func handleTapGesture(_ gesture: UIGestureRecognizer) {
+    open override func handleTapGesture(_ gesture: UIGestureRecognizer) {
         let touchLocation = gesture.location(in: self)
 
         switch true {
@@ -74,13 +73,13 @@ class CustomMessageContentCell: MessageCollectionViewCell {
     }
 
     /// Handle long press gesture, return true when gestureRecognizer's touch point in `messageContainerView`'s frame
-    override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+    open override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         let touchPoint = gestureRecognizer.location(in: self)
         guard gestureRecognizer.isKind(of: UILongPressGestureRecognizer.self) else { return false }
         return self.messageContainerView.frame.contains(touchPoint)
     }
     
-    func setupSubviews() {
+    open func setupSubviews() {
         
         messageContainerView.layer.cornerRadius = 20
         
@@ -89,7 +88,7 @@ class CustomMessageContentCell: MessageCollectionViewCell {
         self.messageContainerView.addSubview(self.cellDateLabel)
     }
     
-    func configure(with message: MessageType,
+    open func configure(with message: MessageType,
                    at indexPath: IndexPath,
                    in messagesCollectionView: MessagesCollectionView,
                    dataSource: MessagesDataSource,
@@ -129,7 +128,7 @@ class CustomMessageContentCell: MessageCollectionViewCell {
     }
 
     /// Handle `ContentView`'s tap gesture, return false when `ContentView` doesn't needs to handle gesture
-    func cellContentView(canHandle touchPoint: CGPoint) -> Bool {
+    open func cellContentView(canHandle touchPoint: CGPoint) -> Bool {
         false
     }
 }

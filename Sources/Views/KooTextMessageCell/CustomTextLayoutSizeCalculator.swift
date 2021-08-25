@@ -7,14 +7,13 @@
 //
 
 import UIKit
-import MessageKit
 
-class CustomTextLayoutSizeCalculator: CustomLayoutSizeCalculator {
+open class CustomTextLayoutSizeCalculator: CustomLayoutSizeCalculator {
 
-    var messageLabelFont = KooFont.messageText
-    var cellMessageContainerRightSpacing: CGFloat = 16
+    open var messageLabelFont: UIFont?
+    open var cellMessageContainerRightSpacing: CGFloat = 16
 
-    override func messageContainerSize(for message: MessageType, at indexPath: IndexPath) -> CGSize {
+    open override func messageContainerSize(for message: MessageType, at indexPath: IndexPath) -> CGSize {
         let size = super.messageContainerSize(for: message, at: indexPath)
         let labelSize = self.messageLabelSize(for: message, at: indexPath)
         let selfWidth = labelSize.width +
@@ -26,7 +25,7 @@ class CustomTextLayoutSizeCalculator: CustomLayoutSizeCalculator {
         return CGSize(width: width, height: height)
     }
     
-    func messageLabelSize(for message: MessageType, at indexPath: IndexPath) -> CGSize {
+    open func messageLabelSize(for message: MessageType, at indexPath: IndexPath) -> CGSize {
         let attributedText: NSAttributedString
 
         let textMessageKind = message.kind
@@ -49,7 +48,7 @@ class CustomTextLayoutSizeCalculator: CustomLayoutSizeCalculator {
         return attributedText.size(consideringWidth: maxWidth)
     }
     
-    func messageLabelFrame(for message: MessageType,
+    open func messageLabelFrame(for message: MessageType,
                            at indexPath: IndexPath) -> CGRect {
         let origin = CGPoint(x: self.cellMessageContentHorizontalPadding / 2 + 7,
                              y: self.cellMessageContentVerticalPadding / 2)
